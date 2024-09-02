@@ -9,11 +9,12 @@ const Contact = () => {
   const dispatch = useDispatch();
   const FormSchema = Yup.object().shape({
     name: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required("Name is required"),
-    number: Yup.string().matches(/^\d{3}-\d{2}-\d{2}$/, 'Phone number must be in the format 123-45-56').required('Phone number is required'),
+    phone: Yup.string().matches(/^\d{3}-\d{2}-\d{2}$/, 'Phone number must be in the format 123-45-56').required('Phone number is required'),
   });
 
-  function onFormSubmit(values) {
-    dispatch(addContact(...values));
+  function onFormSubmit(values, { resetForm }) {
+    dispatch(addContact(values));
+    resetForm();
   }
 
   return (
